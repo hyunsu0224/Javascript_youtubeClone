@@ -8,6 +8,7 @@ let myArray : StringArray;
 myArray = ["Bob", "Fred"];
 
 let myStr : string = myArray[0];
+console.log(myStr);
 
 // 위에서 인덱스 서명이 있는 StringArray 인터페이스가 있다. 이 인덱스 서명은 StringArray가 number로 index(색인화)되면 string을 반환할 것을 나타낸다.
 
@@ -16,5 +17,20 @@ let myStr : string = myArray[0];
 // 반환된 타입의 하위 타입이어야합니다. 이 이유는 number로 인덱싱 할 때, Javascript는 실제로 객체를 인덱싱하기 전에
 // string으로 변환하기 때문입니다.
 // 즉, 100(number)로 인덱싱하는 것은 "100"(string)로 인덱싱하는 것과 같기 때문에, 서로 일관성 있어야합니다.
+
+class Animal {
+    name : string;
+}
+
+class Dog extends Animal {
+    breed : string;
+}
+
+//오류 ! 숫자형 문자열로 인덱싱을 하면 완전히 다른 타입의 Animal을 얻게 될것이다.
+interface NotOkay {
+//    [x : number] : Animal;
+    [x : string] : Dog;
+}
+
 
 
