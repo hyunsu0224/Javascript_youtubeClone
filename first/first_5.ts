@@ -32,5 +32,20 @@ interface NotOkay {
     [x : string] : Dog;
 }
 
+// 문자열 인덱스 시그니처는 "사전" 패턴을 기술하는데 강력한 방법이지만, 모든 프로퍼티들이 반환 타입과 강제로 일치하도록 한다.
+// 문자열 인덱스가 obj.property 가 obj["property"]로도 이용 가능함을 알려주기 때문입니다.
+// 다음 예제에서, name의 타입은 문자열 인덱스 타입과 일치하지 않고, 타입 검사는 에러를 발생시킵니다.
+interface NumberDictionary {
+    [index : string] : number; // 여기 써 있는 number가 인덱서
+    length : number;
+    //name : string;    // 오류, 'name'의 타입은 인덱서의 하위 타입이 아닙니다.
+                        // 만약 [index : string] : number;  이부분을 string으로 변경한다면 오류가 사라진다.
+}
 
-
+// 인덱스의 할당을 막기 위해 인덱스 시그니처를 [읽기 전용]으로 만들 수 있다.
+interface ReadonlyStringArray2 {
+    readonly [index : number]: string;
+}
+let myArray2 : ReadonlyStringArray2 = ["Alice", "Bob"];
+myArray2[2]  = "Mallory"; // 오류 발생!
+// 인덱스 시그니처가 읽기 전용이기 때문에 myArray[2] 값을 할당 할수가 없다.
